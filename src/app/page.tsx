@@ -1,14 +1,10 @@
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { RegisterLink, LoginLink } from "@kinde-oss/kinde-auth-nextjs/components";
-import { redirect } from "next/navigation";
+import { RegisterLink, LoginLink, LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
 
-export default function Home() {
+export default async function Home() {
 
-  // const isUserAuthenticated = getKindeServerSession();
-
-  // if (isUserAuthenticated) {
-  //   return redirect("/posts"); // Redirect to posts if authenticated
-  // }
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
 
   return (
     <div className="text-center pt-5">
@@ -18,10 +14,26 @@ export default function Home() {
       <p className="text-[16px] text-gray-600 mb-8">
         This is a Next.js Blog.
       </p>
-
-      <RegisterLink postLoginRedirectURL="/posts" className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors duration-300 mr-5">Register</RegisterLink>
-      <LoginLink postLoginRedirectURL="/posts" className="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 transition-colors duration-300">Login</LoginLink>
-
+      {user ? (
+        <LogoutLink className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition-colors duration-300 mb-5">
+          Logout
+        </LogoutLink>
+      ) : (
+        <div>
+          <RegisterLink
+            postLoginRedirectURL="/posts"
+            className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors duration-300 mr-5"
+          >
+            Register
+          </RegisterLink>
+          <LoginLink
+            postLoginRedirectURL="/posts"
+            className="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 transition-colors duration-300"
+          >
+            Login
+          </LoginLink>
+        </div>
+      )}
     </div>
   );
 }

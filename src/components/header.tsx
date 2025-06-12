@@ -4,14 +4,15 @@ import { LogoutLink } from '@kinde-oss/kinde-auth-nextjs/components';
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 
-export default function Header() {
+export default async function Header() {
 
-    const isUserAuthenticated = getKindeServerSession();
+    const { getUser } = getKindeServerSession();
+    const user = await getUser();
 
     return (
         <div className="bg-gray-800 text-white py-4 px-5 border-b border-black/10 flex items-center justify-between">
             <div className="text-2xl font-bold">
-                <Link href={isUserAuthenticated ? "/posts" : "/"} className="text-white hover:text-gray-300">
+                <Link href="/" className="text-white hover:text-gray-300">
                     <Image
                         src="/next.svg"
                         alt="Logo"
@@ -28,7 +29,7 @@ export default function Header() {
                         Posts
                     </Link>
                 </li>
-                {isUserAuthenticated && (
+                {user && (
                     <li>
                         <LogoutLink className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition-colors duration-300">
                             Logout

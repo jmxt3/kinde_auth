@@ -1,4 +1,3 @@
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 
 interface Post {
@@ -9,13 +8,6 @@ interface Post {
 }
 
 export default async function PostsPage({ params }: { params: { id: string } }) {
-
-    // const { isAuthenticated } = getKindeServerSession();
-    // const isUserAuthenticated = await isAuthenticated();
-
-    // if (!isUserAuthenticated) {
-    //     return redirect("/api/auth/login"); // Redirect to login if not authenticated
-    // }
 
     const { id } = await params;
 
