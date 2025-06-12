@@ -1,4 +1,4 @@
-This is a Blog Template mad in Next.js with kinde Auth 
+# This is a Blog Template mad in Next.js with kinde Auth 
 
 ## Getting Started
 
